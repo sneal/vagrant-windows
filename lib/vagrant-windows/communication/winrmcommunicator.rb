@@ -60,7 +60,7 @@ module VagrantWindows
         end
         
         # Connect via WinRM and execute the command in the shell.
-        exceptions = [HTTPClient::KeepAliveDisconnected] 
+        exceptions = [Errors::WinRMExecutionError]
         exit_status = retryable(:tries => @machine.config.winrm.max_tries, :on => exceptions, :sleep => 10) do
           shell_execute(command, opts[:shell], &block)
         end
